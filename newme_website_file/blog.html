@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | The New Me</title>
+    <meta name="description"
+        content="Science-backed nutrition, intuitive movement, and mindful living curated for your everyday sustainable transformation.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Page Tokens ── */
+        :root {
+            --accent-green: var(--accent-signal, #3B82F6);
+            --accent-green-hover: var(--accent-signal-hover, #2563EB);
+            --accent-green-soft: rgba(59, 130, 246, 0.08);
+            --accent-green-tag: #eff6ff;
+            --text-dark: var(--charcoal-ink, #18181B);
+            --text-light: var(--steel-secondary, #71717A);
+            --text-muted: var(--muted-slate, #94A3B8);
+            --card-border: var(--whisper-border, rgba(226, 232, 240, 0.5));
+            --card-radius: var(--radius-card, clamp(1.25rem, 2vw, 2.5rem));
+            --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 20px 40px -15px rgba(59, 130, 246, 0.12);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ── Staggered Entrance Animations ── */
+        @keyframes editorialFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            animation: editorialFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .reveal-d1 {
+            animation-delay: 0.08s;
+        }
+
+        .reveal-d2 {
+            animation-delay: 0.16s;
+        }
+
+        .reveal-d3 {
+            animation-delay: 0.24s;
+        }
+
+        .reveal-d4 {
+            animation-delay: 0.32s;
+        }
+
+        .reveal-d5 {
+            animation-delay: 0.40s;
+        }
+
+        /* ── Hero / Editorial Banner ── */
+        .blog-editorial-hero {
+            background-color: var(--bg-off-white, #f8f7f2);
+            padding: 140px 24px 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light, #e0e0e0);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-editorial-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('DATA/blog-hero-bg.jpg') no-repeat center center / cover;
+            filter: blur(8px);
+            transform: scale(1.08);
+            opacity: 0.4;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-inner-container {
+            position: relative;
+            z-index: 1;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--accent-green-soft);
+            color: var(--accent-green);
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .hero-badge svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        .blog-hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+            color: var(--text-dark);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.025em;
+            margin: 0 0 16px;
+            text-wrap: balance;
+        }
+
+        .blog-hero-subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(0.98rem, 1.2vw, 1.12rem);
+            color: var(--text-light);
+            line-height: 1.62;
+            max-width: 640px;
+            margin: 0 auto 36px;
+            text-wrap: balance;
+        }
+
+        /* ── Category Filter Pills ── */
+        .blog-filter-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-pill {
+            background: var(--bg-white, #ffffff);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .filter-pill:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            transform: translateY(-1px);
+        }
+
+        .filter-pill.active {
+            background: #ededeb;
+            color: var(--text-dark);
+            border-color: transparent;
+            font-weight: 600;
+        }
+
+        /* ── Main Layout: 2 Columns ── */
+        .blog-main-layout {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 56px 24px 96px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 1024px) {
+            .blog-main-layout {
+                grid-template-columns: 2.25fr 1fr;
+                gap: 52px;
+                align-items: start;
+            }
+        }
+
+        /* ── Left Column: Articles Stream ── */
+        .blog-feed-column {
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        /* ── Featured Top Card ── */
+        .featured-card {
+            background: var(--bg-white, #ffffff);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--card-shadow);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .featured-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .featured-card-img-wrap {
+            height: clamp(260px, 35vw, 420px);
+            overflow: hidden;
+            background: #f1f0ea;
+        }
+
+        .featured-card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .featured-card:hover .featured-card-img-wrap img {
+            transform: scale(1.025);
+        }
+
+        .featured-card-body {
+            padding: 32px 36px 36px;
+        }
+
+        .post-meta-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: var(--accent-green-tag);
+            color: var(--accent-green);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .category-badge.badge-sub {
+            background: #f4f4f2;
+            color: var(--text-light);
+            margin-left: 6px;
+        }
+
+        .meta-dot-info {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .featured-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 2.2vw, 2rem);
+            color: var(--text-dark);
+            font-weight: 700;
+            line-height: 1.25;
+            margin: 0 0 14px;
+            text-wrap: balance;
+        }
+
+        .featured-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .featured-title a:hover {
+            color: var(--accent-green);
+        }
+
+        .featured-excerpt {
+            color: var(--text-light);
+            font-size: 0.98rem;
+            line-height: 1.65;
+            margin-bottom: 24px;
+            text-wrap: pretty;
+        }
+
+        .post-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding-top: 20px;
+        }
+
+        .author-byline {
+            color: var(--text-dark);
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+
+        .read-story-link {
+            color: var(--accent-green);
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.25s, opacity 0.2s;
+        }
+
+        .read-story-link:hover {
+            gap: 10px;
+            opacity: 0.85;
+        }
+
+        /* ── 2x2 Article Grid ── */
+        .blog-article-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        @media (min-width: 640px) {
+            .blog-article-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .editorial-card {
+            background: var(--bg-white, #ffffff);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .editorial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .editorial-card-img-wrap {
+            height: 220px;
+            overflow: hidden;
+            background: #f1f0ea;
+        }
+
+        .editorial-card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .editorial-card:hover .editorial-card-img-wrap img {
+            transform: scale(1.03);
+        }
+
+        .editorial-card-body {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .editorial-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.32;
+            margin: 12px 0 10px;
+            text-wrap: balance;
+        }
+
+        .editorial-card-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .editorial-card-title a:hover {
+            color: var(--accent-green);
+        }
+
+        .editorial-card-excerpt {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.58;
+            margin-bottom: 20px;
+            flex: 1;
+            text-wrap: pretty;
+        }
+
+        /* ── Expandable Stories Container ── */
+        .hidden-stories {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .hidden-stories.active {
+            display: grid;
+            opacity: 1;
+            grid-template-columns: 1fr;
+            gap: 28px;
+            animation: editorialFadeUp 0.5s ease forwards;
+        }
+
+        @media (min-width: 640px) {
+            .hidden-stories.active {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ── View More Button ── */
+        .view-more-container {
+            text-align: center;
+            padding-top: 16px;
+        }
+
+        .btn-view-more {
+            background: var(--bg-white, #ffffff);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 999px;
+            padding: 12px 28px;
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-view-more svg {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-view-more:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(42, 75, 44, 0.08);
+        }
+
+        .btn-view-more.expanded svg {
+            transform: rotate(180deg);
+        }
+
+        /* ── Right Column: Sidebar ── */
+        .blog-sidebar-column {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .sidebar-card {
+            background: var(--bg-white, #ffffff);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 28px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .sidebar-heading {
+            font-family: var(--font-body);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            margin: 0 0 18px;
+        }
+
+        /* Sidebar: Search */
+        .sidebar-search-card {
+            padding: 12px 16px;
+            background: #f5f5f3;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-search-form {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .sidebar-search-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            color: var(--text-dark);
+        }
+
+        .sidebar-search-input::placeholder {
+            color: #999999;
+        }
+
+        .sidebar-search-btn {
+            background: transparent;
+            border: none;
+            color: #777777;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+
+        .sidebar-search-btn:hover {
+            color: var(--accent-green);
+        }
+
+        /* Sidebar: Founder Card */
+        .founder-profile-card {
+            text-align: center;
+        }
+
+        .founder-avatar-wrap {
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 16px;
+            border: 3px solid var(--accent-green-tag);
+            box-shadow: 0 4px 14px rgba(42, 75, 44, 0.08);
+            background: #eae8e1;
+        }
+
+        .founder-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        .sidebar-kicker {
+            display: block;
+            color: var(--accent-green);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .founder-card-name {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 10px;
+        }
+
+        .founder-card-bio {
+            color: var(--text-light);
+            font-size: 0.88rem;
+            line-height: 1.58;
+            margin: 0 0 18px;
+            text-wrap: pretty;
+        }
+
+        .founder-link {
+            color: var(--accent-green);
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.2s, opacity 0.2s;
+        }
+
+        .founder-link:hover {
+            gap: 8px;
+            opacity: 0.85;
+        }
+
+        /* Sidebar: Categories */
+        .categories-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .categories-list li {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .categories-list li:last-child {
+            border-bottom: none;
+        }
+
+        .cat-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 0;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+
+        .cat-link:hover {
+            color: var(--accent-green);
+            padding-left: 4px;
+        }
+
+        .cat-count {
+            color: #999999;
+            font-size: 0.84rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Sidebar: Trending Now */
+        .trending-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .trending-item {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .trending-thumb-wrap {
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f1f0ea;
+        }
+
+        .trending-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .trending-item:hover .trending-thumb {
+            transform: scale(1.06);
+        }
+
+        .trending-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .trending-date {
+            display: block;
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .trending-title {
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1.35;
+            margin: 0;
+            color: var(--text-dark);
+        }
+
+        .trending-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .trending-title a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Sidebar: 28-Day Reset Journal Promo */
+        .promo-book-card {
+            background: #fafaf8;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .promo-book-img-wrap {
+            max-width: 130px;
+            margin: 0 auto 16px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .promo-book-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .badge-promo-release {
+            display: inline-block;
+            background: var(--accent-green-tag);
+            color: var(--accent-green);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .promo-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 8px;
+        }
+
+        .promo-card-desc {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 0 0 18px;
+            text-wrap: pretty;
+        }
+
+        .btn-promo-order {
+            background: #1a1a1a;
+            color: #ffffff;
+            border-radius: 999px;
+            padding: 11px 24px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            width: 100%;
+            display: block;
+            text-decoration: none;
+            text-align: center;
+            box-sizing: border-box;
+            transition: background 0.25s, transform 0.2s;
+        }
+
+        .btn-promo-order:hover {
+            background: var(--charcoal-ink, #18181B);
+            transform: translateY(-1px);
+        }
+
+        /* Sidebar: Weekly Wellness Newsletter */
+        .newsletter-card {
+            background: #f4f8f4;
+            border: 1px solid rgba(42, 75, 44, 0.12);
+            text-align: center;
+        }
+
+        .newsletter-icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--accent-green-tag);
+            color: var(--accent-green);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .newsletter-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 6px;
+        }
+
+        .newsletter-card-desc {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 0 0 16px;
+            text-wrap: pretty;
+        }
+
+        .newsletter-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 11px 14px;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--accent-green);
+        }
+
+        .btn-newsletter-submit {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 8px;
+            padding: 10px;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s;
+        }
+
+        .btn-newsletter-submit:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            background: #fdfdfd;
+        }
+
+        .newsletter-disclaimer {
+            display: block;
+            font-size: 0.74rem;
+            color: #888888;
+            margin-top: 10px;
+        }
+
+        /* ── Responsive Refinements ── */
+        @media (max-width: 767px) {
+            .blog-editorial-hero {
+                padding: 120px 16px 44px;
+            }
+
+            .blog-main-layout {
+                padding: 36px 16px 64px;
+            }
+
+            .featured-card-body {
+                padding: 24px;
+            }
+
+            .featured-card-img-wrap {
+                height: 220px;
+            }
+
+            .sidebar-card {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 374px) {
+            .blog-editorial-hero {
+                padding: 100px 12px 36px;
+            }
+
+            .featured-card-body {
+                padding: 18px 14px;
+            }
+
+            .filter-pill {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            .category-badge {
+                font-size: 0.68rem;
+                padding: 3px 8px;
+            }
+
+            .post-meta-row {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img fetchpriority="high" decoding="sync" src="DATA/NAV_BAR/heart_logo.webp" alt="Heart Logo"
+                    class="logo-heart">
+                <img fetchpriority="high" decoding="sync" src="DATA/NAV_BAR/Logo_top_text.webp" alt="the new me"
+                    class="logo-text-img">
+            </a>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="#" class="nav-link">Shop</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+            </nav>
+            <div class="header-actions">
+                <button class="icon-btn js-open-search" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <button class="icon-btn cart-btn" aria-label="Cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-badge">0</span>
+                </button>
+                <a href="https://www.amazon.in/dp/9364115511/" target="_blank" rel="noopener noreferrer"
+                    class="btn btn-primary header-cta-desktop">Get The Book</a>
+            </div>
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer-backdrop" id="drawerBackdrop"></div>
+    <nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+        <div class="drawer-header">
+            <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="drawer-links">
+            <a href="index.html" class="drawer-link">Home</a>
+            <a href="about.html" class="drawer-link">About Us</a>
+            <a href="#" class="drawer-link">Shop</a>
+            <a href="blog.html" class="drawer-link active">Blog</a>
+            <a href="contact.html" class="drawer-link">Contact Us</a>
+        </div>
+        <form class="drawer-search" action="https://ilovenewme.com/" method="GET">
+            <input type="text" name="s" placeholder="Search articles..." class="drawer-search-input">
+        </form>
+        <div class="drawer-cta">
+            <a href="https://www.amazon.in/dp/9364115511/" target="_blank" rel="noopener noreferrer"
+                class="btn btn-primary drawer-cta-btn">Get The Book</a>
+        </div>
+    </nav>
+
+    <!-- Editorial Hero Section -->
+    <section class="blog-editorial-hero">
+        <div class="hero-inner-container">
+            <div class="hero-badge reveal">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
+                </svg>
+                <span>Featured Editorial</span>
+            </div>
+            <h1 class="blog-hero-title reveal reveal-d1">Nourish Your Body, Elevate Your Mind</h1>
+            <p class="blog-hero-subtitle reveal reveal-d2">Science-backed nutrition, intuitive movement, and mindful
+                living curated for your everyday sustainable transformation.</p>
+
+            <div class="blog-filter-pills reveal reveal-d3">
+                <button class="filter-pill active" data-category="all">All Stories</button>
+                <button class="filter-pill" data-category="recipes">Nourishing Recipes</button>
+                <button class="filter-pill" data-category="movement">Daily Movement</button>
+                <button class="filter-pill" data-category="mindset">Mindful Habits</button>
+                <button class="filter-pill" data-category="health">Holistic Health</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Editorial Feed & Magazine Sidebar -->
+    <main class="blog-main-layout">
+
+        <!-- Left: Editorial Feed -->
+        <section class="blog-feed-column">
+
+            <!-- Large Featured Card -->
+            <article class="featured-card reveal reveal-d1" data-category="health recipes">
+                <div class="featured-card-img-wrap">
+                    <img fetchpriority="high" src="DATA/editorial/featured-smoothie.jpg"
+                        alt="Vibrant green smoothie bowl with kiwi and chia seeds">
+                </div>
+                <div class="featured-card-body">
+                    <div class="post-meta-row">
+                        <span class="category-badge">Nutrition</span>
+                        <time class="meta-dot-info" datetime="2025-10-24">Oct 24, 2025 &bull; 6 min read</time>
+                    </div>
+                    <h2 class="featured-title">
+                        <a href="#">10 Anti-Inflammatory Morning Rituals That Will Transform Your Energy</a>
+                    </h2>
+                    <p class="featured-excerpt">Discover how small dietary shifts, hydration timing, and intentional
+                        breathwork can soothe systemic inflammation before your workday even begins.</p>
+                    <div class="post-footer-row">
+                        <span class="author-byline">By Gagan Dhawan</span>
+                        <a href="#" class="read-story-link">Read Full Story <span>&rarr;</span></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2x2 Article Grid -->
+            <div class="blog-article-grid">
+
+                <!-- Article 1: Fitness -->
+                <article class="editorial-card reveal reveal-d2" data-category="movement">
+                    <div class="editorial-card-img-wrap">
+                        <img loading="lazy" src="DATA/editorial/fitness-pilates.jpg"
+                            alt="Mindful low-impact pilates practice in sunlit room">
+                    </div>
+                    <div class="editorial-card-body">
+                        <div class="post-meta-row">
+                            <span class="category-badge">Fitness</span>
+                            <span class="meta-dot-info">4 min read</span>
+                        </div>
+                        <h3 class="editorial-card-title">
+                            <a href="#">Low-Impact Strength: Zone 2 Cardio &amp; Pilates</a>
+                        </h3>
+                        <p class="editorial-card-excerpt">Ditch chronic exhaustion. Why lower cortisol zones promote
+                            deep cellular recovery and sustained metabolic power.</p>
+                        <div class="post-footer-row">
+                            <span class="author-byline">Elena Vance</span>
+                            <a href="#" class="read-story-link">Read More <span>&rarr;</span></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2: Recipes -->
+                <article class="editorial-card reveal reveal-d3" data-category="recipes">
+                    <div class="editorial-card-img-wrap">
+                        <img loading="lazy" src="DATA/editorial/turmeric-bowl.jpg"
+                            alt="Turmeric and roasted chickpea power bowl">
+                    </div>
+                    <div class="editorial-card-body">
+                        <div class="post-meta-row">
+                            <div class="badge-group">
+                                <span class="category-badge">Recipes</span>
+                                <span class="category-badge badge-sub">Vegan</span>
+                            </div>
+                            <span class="meta-dot-info">15 min prep</span>
+                        </div>
+                        <h3 class="editorial-card-title">
+                            <a href="#">Golden Turmeric &amp; Roasted Chickpea Power Bowl</a>
+                        </h3>
+                        <p class="editorial-card-excerpt">Rich in curcumin and microbiome-loving fiber, this savory warm
+                            bowl satisfies hunger while calming chronic inflammation.</p>
+                        <div class="post-footer-row">
+                            <span class="author-byline">Chef Mara Lin</span>
+                            <a href="#" class="read-story-link">Read More <span>&rarr;</span></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3: Mindset -->
+                <article class="editorial-card reveal reveal-d4" data-category="mindset">
+                    <div class="editorial-card-img-wrap">
+                        <img loading="lazy" src="DATA/editorial/mindset-tea.jpg"
+                            alt="Chamomile tea with open mindfulness journal">
+                    </div>
+                    <div class="editorial-card-body">
+                        <div class="post-meta-row">
+                            <span class="category-badge">Mindset</span>
+                            <span class="meta-dot-info">5 min read</span>
+                        </div>
+                        <h3 class="editorial-card-title">
+                            <a href="#">The Art of Nervous System Regulation in a Chaotic World</a>
+                        </h3>
+                        <p class="editorial-card-excerpt">Practical physiological sighs, vagus nerve stimulation tricks,
+                            and boundary setting habits you can adopt in under five minutes.</p>
+                        <div class="post-footer-row">
+                            <span class="author-byline">Elena Vance</span>
+                            <a href="#" class="read-story-link">Read More <span>&rarr;</span></a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4: Sleep / Wellness -->
+                <article class="editorial-card reveal reveal-d5" data-category="health mindset">
+                    <div class="editorial-card-img-wrap">
+                        <img loading="lazy" src="DATA/editorial/circadian-bedroom.jpg"
+                            alt="Peaceful minimalist bedroom for restorative sleep">
+                    </div>
+                    <div class="editorial-card-body">
+                        <div class="post-meta-row">
+                            <span class="category-badge">Wellness</span>
+                            <span class="meta-dot-info">7 min read</span>
+                        </div>
+                        <h3 class="editorial-card-title">
+                            <a href="#">Circadian Sleep Hygiene: What Actually Works for Deep REM</a>
+                        </h3>
+                        <p class="editorial-card-excerpt">Thermal regulation, morning lux exposure, and magnesium timing
+                            for restorative sleep cycles without waking up groggy.</p>
+                        <div class="post-footer-row">
+                            <span class="author-byline">Dr. Julian Moore</span>
+                            <a href="#" class="read-story-link">Read More <span>&rarr;</span></a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Additional Stories (Revealed by View More Stories button) -->
+            <div class="hidden-stories" id="hiddenStoriesContainer">
+                <article class="editorial-card" data-category="health">
+                    <div class="editorial-card-img-wrap">
+                        <img loading="lazy" src="DATA/blog_1.webp" alt="Fresh wholesome superfoods and organic greens">
+                    </div>
+                    <div class="editorial-card-body">
+                        <div class="post-meta-row">
+                            <span class="category-badge">Nutrition</span>
+                            <span class="meta-dot-info">6 min read</span>
+                        </div>
+                        <h3 class="editorial-card-title"><a href="#">Weight Loss Tips for a Sustainable Healthy
+                                Lifestyle</a></h3>
+                        <p class="editorial-card-excerpt">Losing weight is one of the biggest challenges faced by people
+                            of all ages. Apart from diet, metabolic consistency matters most.</p>
+                        <div class="post-footer-row">
+                            <span class="author-byline">Gagan Dhawan</span>
+                            <a href="#" class="read-story-link">Read More <span>&rarr;</span></a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="editorial-card" data-category="movement">
+                    <div class="editorial-card-img-wrap">
+                        <img loading="lazy" src="DATA/blog_2.webp"
+                            alt="Person doing functional strength workouts at home">
+                    </div>
+                    <div class="editorial-card-body">
+                        <div class="post-meta-row">
+                            <span class="category-badge">Fitness</span>
+                            <span class="meta-dot-info">5 min read</span>
+                        </div>
+                        <h3 class="editorial-card-title"><a href="#">Top 10 Functional Leg Workouts to Do at Home</a>
+                        </h3>
+                        <p class="editorial-card-excerpt">Going to the gym is not always possible. Whether it's work
+                            commitments, family life, or travel, you can still build resilience.</p>
+                        <div class="post-footer-row">
+                            <span class="author-byline">Elena Vance</span>
+                            <a href="#" class="read-story-link">Read More <span>&rarr;</span></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- View More Stories CTA -->
+            <div class="view-more-container reveal">
+                <button class="btn-view-more" id="btnViewMore" type="button" aria-expanded="false">
+                    <span id="btnViewMoreText">View More Stories</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- Right: Magazine Sidebar -->
+        <aside class="blog-sidebar-column">
+
+            <!-- Widget 1: Search Form -->
+            <div class="sidebar-card sidebar-search-card reveal">
+                <form class="sidebar-search-form" id="blogSearchForm">
+                    <input type="text" class="sidebar-search-input" id="blogSearchInput"
+                        placeholder="Search articles, recipes..." aria-label="Search articles">
+                    <button type="submit" class="sidebar-search-btn" aria-label="Submit search">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Widget 2: Founder Profile Card -->
+            <div class="sidebar-card founder-profile-card reveal reveal-d1">
+                <div class="founder-avatar-wrap">
+                    <img loading="lazy" src="DATA/Author_Images/3.webp" alt="Gagan Dhawan" class="founder-avatar-img">
+                </div>
+                <span class="sidebar-kicker">Founder &amp; Author</span>
+                <h3 class="founder-card-name">Hi, I'm Gagan Dhawan</h3>
+                <p class="founder-card-bio">Founder of The New Me &amp; wellness author. Welcome to your safe space for
+                    clean recipes, cellular health, and mindful living.</p>
+                <a href="about.html" class="founder-link">My Story &amp; Philosophy <span>&rarr;</span></a>
+            </div>
+
+            <!-- Widget 3: Categories Card -->
+            <div class="sidebar-card categories-card reveal reveal-d2">
+                <h3 class="sidebar-heading">Categories</h3>
+                <ul class="categories-list">
+                    <li><a href="#" class="cat-link" data-cat="recipes"><span>Healthy Recipes</span> <span
+                                class="cat-count">28</span></a></li>
+                    <li><a href="#" class="cat-link" data-cat="movement"><span>Daily Movement</span> <span
+                                class="cat-count">19</span></a></li>
+                    <li><a href="#" class="cat-link" data-cat="health"><span>Gut Health</span> <span
+                                class="cat-count">14</span></a></li>
+                    <li><a href="#" class="cat-link" data-cat="mindset"><span>Mindfulness &amp; Sleep</span> <span
+                                class="cat-count">22</span></a></li>
+                    <li><a href="#" class="cat-link" data-cat="health"><span>Clean Beauty</span> <span
+                                class="cat-count">11</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Widget 4: Trending Now Card -->
+            <div class="sidebar-card trending-card reveal reveal-d3">
+                <h3 class="sidebar-heading">Trending Now</h3>
+                <div class="trending-list">
+                    <article class="trending-item">
+                        <div class="trending-thumb-wrap">
+                            <img loading="lazy" src="DATA/editorial/trending-probiotics.jpg"
+                                alt="Probiotic fermented foods" class="trending-thumb">
+                        </div>
+                        <div class="trending-content">
+                            <time class="trending-date" datetime="2025-10-26">Oct 26, 2025</time>
+                            <h4 class="trending-title"><a href="#">5 Probiotic Foods That Outperform Supplements</a>
+                            </h4>
+                        </div>
+                    </article>
+                    <article class="trending-item">
+                        <div class="trending-thumb-wrap">
+                            <img loading="lazy" src="DATA/editorial/trending-forest.jpg"
+                                alt="Person walking in peaceful green forest" class="trending-thumb">
+                        </div>
+                        <div class="trending-content">
+                            <time class="trending-date" datetime="2025-10-20">Oct 20, 2025</time>
+                            <h4 class="trending-title"><a href="#">Forest Bathing: The Neuroscience of Immersion</a>
+                            </h4>
+                        </div>
+                    </article>
+                    <article class="trending-item">
+                        <div class="trending-thumb-wrap">
+                            <img loading="lazy" src="DATA/editorial/trending-hydration.jpg"
+                                alt="Infused water with mint and cucumber" class="trending-thumb">
+                        </div>
+                        <div class="trending-content">
+                            <time class="trending-date" datetime="2025-10-16">Oct 16, 2025</time>
+                            <h4 class="trending-title"><a href="#">Why Cellular Hydration Needs More Than Plain
+                                    Water</a></h4>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Widget 5: 28-Day Reset Journal Promo Card -->
+            <div class="sidebar-card promo-book-card reveal reveal-d4">
+                <div class="promo-book-img-wrap">
+                    <img loading="lazy" src="DATA/The_NEW_ME_2.0_Book_Covers/Book_New_Me.webp"
+                        alt="The 28-Day Reset Journal book cover" class="promo-book-img">
+                </div>
+                <span class="badge-promo-release">New Release</span>
+                <h3 class="promo-card-title">The 28-Day Reset Journal</h3>
+                <p class="promo-card-desc">Your guided workbook for intentional habits, intuitive meal mapping &amp;
+                    dining.</p>
+                <a href="https://www.amazon.in/dp/9364115511/" target="_blank" rel="noopener noreferrer"
+                    class="btn-promo-order">Order Your Copy</a>
+            </div>
+
+            <!-- Widget 6: Weekly Wellness Newsletter Card -->
+            <div class="sidebar-card newsletter-card reveal reveal-d5">
+                <div class="newsletter-icon-wrap">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </div>
+                <h3 class="newsletter-card-title">Weekly Wellness</h3>
+                <p class="newsletter-card-desc">Nourishing recipes, mindful prompts, and clinical insights delivered
+                    every Sunday.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="newsletter-input-group" id="newsletterInputs">
+                        <input type="email" placeholder="Your email address" required class="newsletter-input"
+                            aria-label="Email address">
+                        <button type="submit" class="btn-newsletter-submit">Subscribe</button>
+                    </div>
+                    <div id="newsletterSuccess"
+                        style="display:none; color: var(--accent-green); font-size: 0.88rem; font-weight: 600; padding: 10px 0;">
+                        &#10003; Thank you! You're on the list.
+                    </div>
+                </form>
+                <span class="newsletter-disclaimer">Zero spam. Unsubscribe at any time.</span>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img loading="lazy" src="DATA/NAV_BAR/Logo_top_text.webp" alt="the new me" class="footer-logo-img">
+                    <span class="logo-subtext">EAT • FOCUS • REBUILD • LIVE</span>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/ilovenewme?stkn=bnNyZGUxMHY4ZGZn&utm_source=qr"
+                        target="_blank"><img loading="lazy" src="DATA/About_Us/instagram.svg" alt="Instagram"
+                            class="social-icon"></a>
+                    <a href="https://www.facebook.com/share/1DnkznQLPR/?mibextid=wwXIfr" target="_blank"><img
+                            loading="lazy" src="DATA/About_Us/facebook.svg" alt="Facebook" class="social-icon"></a>
+                    <a href="#"><img loading="lazy" src="DATA/About_Us/youtube.svg" alt="YouTube"
+                            class="social-icon"></a>
+                    <a href="#"><img loading="lazy" src="DATA/About_Us/linked_in.svg" alt="LinkedIn"
+                            class="social-icon"></a>
+                    <a href="#"><img loading="lazy" src="DATA/About_Us/x.svg" alt="X (Twitter)" class="social-icon"></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="#">Shop</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Help</h4>
+                <a href="#">FAQs</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Return Policy</a>
+                <a href="#">Delivery Policy</a>
+                <a href="#">Cancellation Policy</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p>Plot No 49, Pace City - 1,<br>Sector 37, Gurgaon, Haryana - 122004</p>
+                <p>info@ilovenewme.com</p>
+                <p>+91 9958975112</p>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 The New Me. All rights reserved.</p>
+            <p>A Healthier, Happier You, Always.</p>
+        </div>
+    </footer>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay hidden" id="searchOverlay">
+        <button class="search-close" id="searchClose" aria-label="Close search">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="search-overlay-content">
+            <h2 class="search-title">What are you looking for?</h2>
+            <form class="search-form" action="https://ilovenewme.com/" method="GET">
+                <input type="text" name="s" placeholder="Search articles, topics..." class="search-input-large"
+                    id="searchInputDesktop">
+                <button type="submit" class="search-submit-btn" aria-label="Submit search">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Interactive Script for Filtering, Search & Expand -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Category Filter Pills
+            const pills = document.querySelectorAll('.filter-pill');
+            const allArticles = document.querySelectorAll('.featured-card, .editorial-card');
+
+            pills.forEach(pill => {
+                pill.addEventListener('click', function () {
+                    pills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    const category = this.getAttribute('data-category');
+
+                    allArticles.forEach(article => {
+                        const articleCats = (article.getAttribute('data-category') || '').split(' ');
+                        if (category === 'all' || articleCats.includes(category)) {
+                            article.style.display = '';
+                        } else {
+                            article.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Category Links in Sidebar
+            const catLinks = document.querySelectorAll('.categories-list .cat-link');
+            catLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const cat = this.getAttribute('data-cat');
+                    const matchingPill = Array.from(pills).find(p => p.getAttribute('data-category') === cat);
+                    if (matchingPill) {
+                        matchingPill.click();
+                        window.scrollTo({ top: document.querySelector('.blog-main-layout').offsetTop - 100, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // "View More Stories" toggle
+            const btnViewMore = document.getElementById('btnViewMore');
+            const hiddenContainer = document.getElementById('hiddenStoriesContainer');
+            const btnText = document.getElementById('btnViewMoreText');
+            if (btnViewMore && hiddenContainer) {
+                btnViewMore.addEventListener('click', function () {
+                    const isExpanded = hiddenContainer.classList.contains('active');
+                    if (!isExpanded) {
+                        hiddenContainer.classList.add('active');
+                        btnViewMore.classList.add('expanded');
+                        btnText.textContent = 'Show Fewer Stories';
+                        btnViewMore.setAttribute('aria-expanded', 'true');
+                    } else {
+                        hiddenContainer.classList.remove('active');
+                        btnViewMore.classList.remove('expanded');
+                        btnText.textContent = 'View More Stories';
+                        btnViewMore.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            // Live Blog Search
+            const blogSearchInput = document.getElementById('blogSearchInput');
+            const blogSearchForm = document.getElementById('blogSearchForm');
+            if (blogSearchInput) {
+                blogSearchInput.addEventListener('input', function () {
+                    const query = this.value.toLowerCase().trim();
+                    allArticles.forEach(article => {
+                        const title = (article.querySelector('h2, h3')?.textContent || '').toLowerCase();
+                        const excerpt = (article.querySelector('p')?.textContent || '').toLowerCase();
+                        if (!query || title.includes(query) || excerpt.includes(query)) {
+                            article.style.display = '';
+                        } else {
+                            article.style.display = 'none';
+                        }
+                    });
+                });
+                if (blogSearchForm) {
+                    blogSearchForm.addEventListener('submit', function (e) { e.preventDefault(); });
+                }
+            }
+
+            // Newsletter subscription feedback
+            const newsletterForm = document.getElementById('newsletterForm');
+            const newsletterInputs = document.getElementById('newsletterInputs');
+            const newsletterSuccess = document.getElementById('newsletterSuccess');
+            if (newsletterForm && newsletterInputs && newsletterSuccess) {
+                newsletterForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    newsletterInputs.style.display = 'none';
+                    newsletterSuccess.style.display = 'block';
+                });
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

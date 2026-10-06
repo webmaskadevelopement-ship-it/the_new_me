@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | The New Me</title>
+    <meta name="description" content="Get in touch with The New Me team. Connect with our reader concierge for questions on whole-food nutrition, books, or brand partnerships.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Page Tokens ── */
+        :root {
+            --accent-green: var(--accent-signal, #3B82F6);
+            --accent-green-hover: var(--accent-signal-hover, #2563EB);
+            --accent-green-soft: rgba(59, 130, 246, 0.08);
+            --accent-green-tint: #eff6ff;
+            --text-dark: var(--charcoal-ink, #18181B);
+            --text-light: var(--steel-secondary, #71717A);
+            --text-muted: var(--muted-slate, #94A3B8);
+            --card-border: var(--whisper-border, rgba(226, 232, 240, 0.5));
+            --card-radius: var(--radius-card, clamp(1.25rem, 2vw, 2.5rem));
+            --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 20px 40px -15px rgba(59, 130, 246, 0.12);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* ── Staggered Entrance Animations ── */
+        @keyframes contactFadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { opacity: 0; animation: contactFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .reveal-d1 { animation-delay: 0.1s; }
+        .reveal-d2 { animation-delay: 0.2s; }
+        .reveal-d3 { animation-delay: 0.3s; }
+        .reveal-d4 { animation-delay: 0.4s; }
+
+        /* ── Hero / Editorial Banner ── */
+        .contact-editorial-hero {
+            background-color: var(--bg-off-white, #f8f7f2);
+            padding: 140px 24px 72px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light, #e0e0e0);
+            position: relative;
+        }
+        .hero-inner-container {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .hero-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-green-tint);
+            border: 1px solid rgba(42, 75, 44, 0.15);
+            color: var(--accent-green);
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .status-pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            display: inline-block;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.85); }
+        }
+        .contact-hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+            color: var(--text-dark);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.025em;
+            margin: 0 0 16px;
+            text-wrap: balance;
+        }
+        .contact-hero-subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(1rem, 1.25vw, 1.12rem);
+            color: var(--text-light);
+            line-height: 1.68;
+            max-width: 620px;
+            margin: 0 auto;
+            text-wrap: balance;
+        }
+
+        /* ── Main Layout: Two Columns ── */
+        .contact-main-section {
+            padding: 80px 24px 100px;
+            max-width: 1220px;
+            margin: 0 auto;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+        @media (min-width: 992px) {
+            .contact-grid {
+                grid-template-columns: 1fr 1.22fr;
+                gap: 64px;
+            }
+        }
+
+        /* ── Left Column: Direct Channels ── */
+        .contact-channels-col {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .channels-intro-heading {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+            color: var(--text-dark);
+            font-weight: 700;
+            line-height: 1.25;
+            margin: 0 0 10px;
+            text-wrap: balance;
+        }
+        .channels-intro-p {
+            color: var(--text-light);
+            font-size: 0.96rem;
+            line-height: 1.62;
+            margin: 0 0 24px;
+            text-wrap: pretty;
+        }
+        .channel-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .channel-card {
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            padding: 22px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .channel-card:hover {
+            border-color: rgba(42, 75, 44, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(42, 75, 44, 0.05);
+        }
+        .channel-icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: var(--accent-green-tint);
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .channel-icon-box svg {
+            width: 20px;
+            height: 20px;
+        }
+        .channel-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .channel-tag {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .channel-title {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0 0 4px;
+        }
+        .channel-val {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            transition: color 0.2s;
+            word-break: break-word;
+        }
+        a.channel-val:hover {
+            color: var(--accent-green);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .channel-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        /* ── Right Column: Bespoke Inquiry Form Card ── */
+        .contact-form-card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            padding: 40px 38px;
+            box-shadow: var(--card-shadow);
+        }
+        .form-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 8px;
+        }
+        .form-card-subtitle {
+            font-size: 0.92rem;
+            color: var(--text-light);
+            margin: 0 0 28px;
+            line-height: 1.55;
+            text-wrap: pretty;
+        }
+
+        /* Topic selector chips */
+        .topic-selector-wrap {
+            margin-bottom: 24px;
+        }
+        .topic-label {
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 10px;
+        }
+        .topic-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .topic-chip {
+            background: #f5f5f3;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 999px;
+            padding: 7px 16px;
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: var(--text-light);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .topic-chip:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            background: #ffffff;
+        }
+        .topic-chip.active {
+            background: var(--accent-green);
+            color: #ffffff;
+            border-color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        /* Form Inputs */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+        @media (min-width: 600px) {
+            .form-row-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .form-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .field-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .field-label span.req {
+            color: var(--accent-green);
+            margin-left: 2px;
+        }
+        .field-input,
+        .field-textarea {
+            width: 100%;
+            background: #fbfaf8;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 13px 16px;
+            font-family: var(--font-body);
+            font-size: 0.94rem;
+            color: var(--text-dark);
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+        .field-input:focus,
+        .field-textarea:focus {
+            border-color: var(--accent-green);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(42, 75, 44, 0.08);
+        }
+        .field-input::placeholder,
+        .field-textarea::placeholder {
+            color: #a0a0a0;
+        }
+        .field-textarea {
+            min-height: 140px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        /* Tactile Submit Button */
+        .btn-contact-submit {
+            width: 100%;
+            background: var(--accent-green);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 28px;
+            font-family: var(--font-body);
+            font-size: 0.98rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            box-shadow: 0 4px 14px rgba(42, 75, 44, 0.16);
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+        }
+        .btn-contact-submit:hover {
+            background: var(--accent-green-hover);
+            box-shadow: 0 6px 20px rgba(42, 75, 44, 0.22);
+            transform: translateY(-1px);
+        }
+        .btn-contact-submit:active {
+            transform: scale(0.98) translateY(1px);
+        }
+        .btn-contact-submit svg {
+            transition: transform 0.2s ease;
+        }
+        .btn-contact-submit:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* Success Card Feedback */
+        .form-success-banner {
+            display: none;
+            background: #f4f8f4;
+            border: 1px solid rgba(42, 75, 44, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .success-icon-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .success-title {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin: 0 0 6px;
+        }
+        .success-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* ── Location & Headquarters Section ── */
+        .headquarters-section {
+            background: #ffffff;
+            border-top: 1px solid var(--border-light, #e0e0e0);
+            padding: 88px 24px 96px;
+        }
+        .hq-container {
+            max-width: 1220px;
+            margin: 0 auto;
+        }
+        .hq-header-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 36px;
+        }
+        @media (min-width: 768px) {
+            .hq-header-row {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+        }
+        .hq-eyebrow {
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .hq-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3.2vw, 2.6rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        .hq-meta-badge {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+        .map-frame-wrap {
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            height: 420px;
+            background: #f1f0eb;
+        }
+        .map-frame-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* ── FAQ Section ── */
+        .contact-faq-section {
+            background: var(--bg-off-white, #f8f7f2);
+            border-top: 1px solid var(--border-light, #e0e0e0);
+            padding: 88px 24px 104px;
+        }
+        .faq-inner-wrap {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+        .faq-section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .faq-eyebrow {
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .faq-section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3.2vw, 2.5rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 12px;
+            text-wrap: balance;
+        }
+        .faq-section-subtitle {
+            color: var(--text-light);
+            font-size: 0.98rem;
+            margin: 0;
+        }
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .faq-item {
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .faq-item:hover {
+            border-color: rgba(42, 75, 44, 0.25);
+            box-shadow: 0 4px 16px rgba(42, 75, 44, 0.04);
+        }
+        .faq-question-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 22px 26px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            text-align: left;
+            font-family: var(--font-body);
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+        .faq-chevron {
+            width: 20px;
+            height: 20px;
+            color: var(--text-muted);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s;
+            flex-shrink: 0;
+        }
+        .faq-item.open .faq-chevron {
+            transform: rotate(180deg);
+            color: var(--accent-green);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+            padding: 0 26px;
+            color: var(--text-light);
+            font-size: 0.94rem;
+            line-height: 1.68;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+            padding: 0 26px 22px;
+        }
+
+        /* ── Responsive Refinements ── */
+        @media (max-width: 767px) {
+            .contact-editorial-hero { padding: 120px 16px 52px; }
+            .contact-main-section { padding: 52px 16px 72px; }
+            .contact-form-card { padding: 26px 20px; }
+            .headquarters-section { padding: 64px 16px; }
+            .map-frame-wrap { height: 320px; }
+            .contact-faq-section { padding: 64px 16px 80px; }
+            .faq-question-btn { padding: 18px 20px; font-size: 0.96rem; }
+            .faq-item.open .faq-answer { padding: 0 20px 18px; }
+        }
+        @media (max-width: 374px) {
+            .contact-editorial-hero { padding: 100px 12px 40px; }
+            .contact-form-card { padding: 20px 14px; }
+            .topic-chip { padding: 6px 12px; font-size: 0.78rem; }
+            .faq-question-btn { padding: 16px 14px; font-size: 0.9rem; }
+            .faq-item.open .faq-answer { padding: 0 14px 16px; }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img fetchpriority="high" decoding="sync" src="DATA/NAV_BAR/heart_logo.webp" alt="Heart Logo" class="logo-heart">
+                <img fetchpriority="high" decoding="sync" src="DATA/NAV_BAR/Logo_top_text.webp" alt="the new me" class="logo-text-img">
+            </a>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="#" class="nav-link">Shop</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link active">Contact Us</a>
+            </nav>
+            <div class="header-actions">
+                <button class="icon-btn js-open-search" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+                <button class="icon-btn cart-btn" aria-label="Cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <span class="cart-badge">0</span>
+                </button>
+                <a href="https://www.amazon.in/dp/9364115511/" target="_blank" rel="noopener noreferrer" class="btn btn-primary header-cta-desktop">Get The Book</a>
+            </div>
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer-backdrop" id="drawerBackdrop"></div>
+    <nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+        <div class="drawer-header">
+            <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <div class="drawer-links">
+            <a href="index.html" class="drawer-link">Home</a>
+            <a href="about.html" class="drawer-link">About Us</a>
+            <a href="#" class="drawer-link">Shop</a>
+            <a href="blog.html" class="drawer-link">Blog</a>
+            <a href="contact.html" class="drawer-link active">Contact Us</a>
+        </div>
+        <form class="drawer-search" action="https://ilovenewme.com/" method="GET">
+            <input type="text" name="s" placeholder="Search articles..." class="drawer-search-input">
+        </form>
+        <div class="drawer-cta">
+            <a href="https://www.amazon.in/dp/9364115511/" target="_blank" rel="noopener noreferrer" class="btn btn-primary drawer-cta-btn">Get The Book</a>
+        </div>
+    </nav>
+
+    <!-- Editorial Hero Section -->
+    <section class="contact-editorial-hero">
+        <div class="hero-inner-container reveal">
+            <div class="hero-status-pill">
+                <span class="status-pulse-dot" aria-hidden="true"></span>
+                <span>Direct Concierge &bull; Replies within 24h</span>
+            </div>
+            <h1 class="contact-hero-title">Let's Start a Conversation</h1>
+            <p class="contact-hero-subtitle">
+                Have a question about our plant-based protocols, books, or brand partnerships? Our team is here to provide thoughtful guidance.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Two-Column Contact Section -->
+    <main class="contact-main-section">
+        <div class="contact-grid">
+            
+            <!-- Left Column: Direct Communication Channels -->
+            <div class="contact-channels-col reveal reveal-d1">
+                <div>
+                    <h2 class="channels-intro-heading">Reach Our Team Directly</h2>
+                    <p class="channels-intro-p">
+                        We welcome inquiries from our readers, wellness practitioners, and prospective partners. Choose the best channel for your message below.
+                    </p>
+                </div>
+
+                <div class="channel-card-list">
+                    
+                    <!-- Channel 1: Email -->
+                    <div class="channel-card">
+                        <div class="channel-icon-box" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <span class="channel-tag">Reader Support</span>
+                            <div class="channel-title">Email Our Concierge</div>
+                            <a href="mailto:info@ilovenewme.com" class="channel-val">info@ilovenewme.com</a>
+                            <div class="channel-desc">For general questions, book inquiries, and reader guidance.</div>
+                        </div>
+                    </div>
+
+                    <!-- Channel 2: Phone -->
+                    <div class="channel-card">
+                        <div class="channel-icon-box" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <span class="channel-tag">Direct Line</span>
+                            <div class="channel-title">Phone &amp; WhatsApp</div>
+                            <a href="tel:+919958975112" class="channel-val">+91 99589 75112</a>
+                            <div class="channel-desc">Mon - Sat, 9:30 AM - 6:30 PM IST (GMT+5:30).</div>
+                        </div>
+                    </div>
+
+                    <!-- Channel 3: Address -->
+                    <div class="channel-card">
+                        <div class="channel-icon-box" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <span class="channel-tag">Headquarters</span>
+                            <div class="channel-title">The New Me Studio</div>
+                            <div class="channel-val">Plot No. 49, Pace City-1, Sector 37, Gurugram, Haryana - 122004</div>
+                            <div class="channel-desc">Open for scheduled partner visits and book pickup.</div>
+                        </div>
+                    </div>
+
+                    <!-- Channel 4: Media & Partnerships -->
+                    <div class="channel-card">
+                        <div class="channel-icon-box" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <span class="channel-tag">Collaborations</span>
+                            <div class="channel-title">Media &amp; Speaking</div>
+                            <a href="mailto:partners@ilovenewme.com" class="channel-val">partners@ilovenewme.com</a>
+                            <div class="channel-desc">Press requests, literary invitations, and brand features.</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right Column: Bespoke Inquiry Form Card -->
+            <div class="contact-form-card reveal reveal-d2">
+                <h3 class="form-card-title">Send Us a Message</h3>
+                <p class="form-card-subtitle">
+                    Select a topic below so we can route your message to the appropriate specialist.
+                </p>
+
+                <form id="contactForm" onsubmit="event.preventDefault(); document.getElementById('contactFormFields').style.display='none'; document.getElementById('contactSuccessBanner').style.display='block';">
+                    
+                    <div id="contactFormFields">
+                        
+                        <!-- Topic Selector Chips -->
+                        <div class="topic-selector-wrap">
+                            <span class="topic-label">Inquiry Topic</span>
+                            <div class="topic-chips">
+                                <span class="topic-chip active" data-topic="General Query">General Query</span>
+                                <span class="topic-chip" data-topic="The Book &amp; Method">The Book &amp; Method</span>
+                                <span class="topic-chip" data-topic="Nutrition Guidance">Nutrition Guidance</span>
+                                <span class="topic-chip" data-topic="Media &amp; Press">Media &amp; Press</span>
+                            </div>
+                        </div>
+
+                        <!-- Name & Email -->
+                        <div class="form-row form-row-2">
+                            <div class="form-field-group">
+                                <label for="contactName" class="field-label">Your Name <span class="req">*</span></label>
+                                <input type="text" id="contactName" class="field-input" placeholder="e.g. Maya Sharma" required>
+                            </div>
+                            <div class="form-field-group">
+                                <label for="contactEmail" class="field-label">Email Address <span class="req">*</span></label>
+                                <input type="email" id="contactEmail" class="field-input" placeholder="e.g. maya@example.com" required>
+                            </div>
+                        </div>
+
+                        <!-- Phone & Subject -->
+                        <div class="form-row form-row-2">
+                            <div class="form-field-group">
+                                <label for="contactPhone" class="field-label">Phone Number <span style="color:var(--text-muted); font-weight:400;">(Optional)</span></label>
+                                <input type="tel" id="contactPhone" class="field-input" placeholder="+91 98765 43210">
+                            </div>
+                            <div class="form-field-group">
+                                <label for="contactSubject" class="field-label">Subject <span class="req">*</span></label>
+                                <input type="text" id="contactSubject" class="field-input" placeholder="How can we assist you?" required>
+                            </div>
+                        </div>
+
+                        <!-- Message -->
+                        <div class="form-row">
+                            <div class="form-field-group">
+                                <label for="contactMessage" class="field-label">Your Message <span class="req">*</span></label>
+                                <textarea id="contactMessage" class="field-textarea" placeholder="Share your question or details with us..." required></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-contact-submit">
+                            <span>Send Message</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Clean Confirmation State -->
+                    <div id="contactSuccessBanner" class="form-success-banner">
+                        <div class="success-icon-badge" aria-hidden="true">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <h4 class="success-title">Message Received</h4>
+                        <p class="success-desc">
+                            Thank you for reaching out to The New Me. A member of our concierge team will review your inquiry and respond to your email within 24 business hours.
+                        </p>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Location & Headquarters Section -->
+    <section class="headquarters-section reveal">
+        <div class="hq-container">
+            <div class="hq-header-row">
+                <div>
+                    <span class="hq-eyebrow">Visit Our Headquarters</span>
+                    <h2 class="hq-title">Pace City-1, Gurugram</h2>
+                </div>
+                <div class="hq-meta-badge">
+                    Plot No. 49, Sector 37 &bull; Haryana 122004
+                </div>
+            </div>
+            
+            <div class="map-frame-wrap">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.117185526017!2d76.99346611507722!3d28.415714082502693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d5ac20473cb%3A0x867ef73c681283c7!2sPace%20City%20I%2C%20Sector%2037%2C%20Gurugram%2C%20Haryana%20122004!5e0!3m2!1sen!2sin!4v1689000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="The New Me office location on Google Maps"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frequently Asked Questions -->
+    <section class="contact-faq-section reveal">
+        <div class="faq-inner-wrap">
+            <div class="faq-section-header">
+                <span class="faq-eyebrow">Common Inquiries</span>
+                <h2 class="faq-section-title">Frequently Asked Questions</h2>
+                <p class="faq-section-subtitle">Quick answers to common questions about our programs and orders.</p>
+            </div>
+
+            <div class="faq-list">
+                
+                <div class="faq-item open">
+                    <button class="faq-question-btn" type="button" aria-expanded="true">
+                        <span>How quickly does your team respond to inquiries?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        Our reader concierge team reviews incoming correspondence Monday through Saturday. You can typically expect a detailed personal reply within 24 to 48 business hours.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question-btn" type="button" aria-expanded="false">
+                        <span>Where can I purchase 'The New Me 2.0' book?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        The New Me 2.0 is available directly through Amazon India (hardcover and digital edition) and select bookstores. You can click 'Get The Book' in the main navigation for direct access.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question-btn" type="button" aria-expanded="false">
+                        <span>Are bulk corporate wellness orders supported?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        Yes. For corporate wellness initiatives, keynote talks, or institutional book orders of 25+ copies, please select 'Media &amp; Press' in the contact form or email partners@ilovenewme.com.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question-btn" type="button" aria-expanded="false">
+                        <span>Can I visit your office in Gurugram?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        We welcome scheduled visits for media meetings, book signings, and strategic partnerships. We kindly ask that all in-person visits be scheduled at least 48 hours in advance via our concierge.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img loading="lazy" src="DATA/NAV_BAR/Logo_top_text.webp" alt="the new me" class="footer-logo-img">
+                    <span class="logo-subtext">EAT • FOCUS • REBUILD • LIVE</span>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/ilovenewme?stkn=bnNyZGUxMHY4ZGZn&utm_source=qr" target="_blank"><img loading="lazy" src="DATA/About_Us/instagram.svg" alt="Instagram" class="social-icon"></a>
+                    <a href="https://www.facebook.com/share/1DnkznQLPR/?mibextid=wwXIfr" target="_blank"><img loading="lazy" src="DATA/About_Us/facebook.svg" alt="Facebook" class="social-icon"></a>
+                    <a href="#"><img loading="lazy" src="DATA/About_Us/youtube.svg" alt="YouTube" class="social-icon"></a>
+                    <a href="#"><img loading="lazy" src="DATA/About_Us/linked_in.svg" alt="LinkedIn" class="social-icon"></a>
+                    <a href="#"><img loading="lazy" src="DATA/About_Us/x.svg" alt="X (Twitter)" class="social-icon"></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="https://www.amazon.in/dp/9364115511/" target="_blank" rel="noopener noreferrer">The Book</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Help</h4>
+                <a href="#">FAQs</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Return Policy</a>
+                <a href="#">Delivery Policy</a>
+                <a href="#">Cancellation Policy</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p>Plot No 49, Pace City - 1,<br>Sector 37, Gurgaon, Haryana - 122004</p>
+                <p>info@ilovenewme.com</p>
+                <p>+91 9958975112</p>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 The New Me. All rights reserved.</p>
+            <p>A Healthier, Happier You, Always.</p>
+        </div>
+    </footer>
+    
+    <!-- Search Overlay -->
+    <div class="search-overlay hidden" id="searchOverlay">
+        <button class="search-close" id="searchClose" aria-label="Close search">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="search-overlay-content">
+            <h2 class="search-title">What are you looking for?</h2>
+            <form class="search-form" action="https://ilovenewme.com/" method="GET">
+                <input type="text" name="s" placeholder="Search articles, topics..." class="search-input-large" id="searchInputDesktop">
+                <button type="submit" class="search-submit-btn" aria-label="Submit search">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Interactive Script for Chips & Accordion -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Topic chips toggle
+            const chips = document.querySelectorAll('.topic-chip');
+            chips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    chips.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // FAQ accordion toggle
+            const faqButtons = document.querySelectorAll('.faq-question-btn');
+            faqButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const item = this.closest('.faq-item');
+                    const isOpen = item.classList.contains('open');
+                    
+                    // Close other items
+                    document.querySelectorAll('.faq-item').forEach(other => {
+                        if (other !== item) {
+                            other.classList.remove('open');
+                            other.querySelector('.faq-question-btn')?.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+
+                    if (isOpen) {
+                        item.classList.remove('open');
+                        this.setAttribute('aria-expanded', 'false');
+                    } else {
+                        item.classList.add('open');
+                        this.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
